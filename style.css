@@ -1,0 +1,813 @@
+/* Logo pop-out effect on hover */
+.wp-block-site-logo img {
+	transition: transform 0.25s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.wp-block-site-logo:hover img,
+.wp-block-site-logo:focus-within img {
+	transform: scale(1.12);
+}
+/* Sticky sidebar event box and link */
+.home-sidebar-sticky {
+	position: sticky;
+	top: 5rem;
+}
+/*
+Theme Name: Twenty Twenty-Five
+Theme URI: https://wordpress.org/themes/twentytwentyfive/
+Author: the WordPress team
+Author URI: https://wordpress.org
+Description: Twenty Twenty-Five emphasizes simplicity and adaptability. It offers flexible design options, supported by a variety of patterns for different page types, such as services and landing pages, making it ideal for building personal blogs, professional portfolios, online magazines, or business websites. Its templates cater to various blog styles, from text-focused to image-heavy layouts. Additionally, it supports international typography and diverse color palettes, ensuring accessibility and customization for users worldwide.
+Requires at least: 6.7
+Tested up to: 6.8
+Requires PHP: 7.2
+Version: 1.3
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: twentytwentyfive
+Tags: one-column, custom-colors, custom-menu, custom-logo, editor-style, featured-images, full-site-editing, block-patterns, rtl-language-support, sticky-post, threaded-comments, translation-ready, wide-blocks, block-styles, style-variations, accessibility-ready, blog, portfolio, news
+*/
+
+/*
+ * Sharp 90-degree corners – no border radius on boxes
+ */
+.wp-block-group,
+.wp-block-button__link,
+.home-hero .home-hero-article-caption,
+.home-hero .next-event-caption,
+.home-hero .home-hero-sidebox,
+.home-sidebar-event-box,
+.home-sidebar-event-box .wp-block-everycal-next-event,
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__inner,
+.home-sidebar-card,
+.home-donation-cta,
+.home-newsletter-cta,
+figure:has(img),
+.is-style-post-template-1 li .group-link-wrapper {
+	border-radius: 0 !important;
+}
+
+/*
+ * Link styles
+ * https://github.com/WordPress/gutenberg/issues/42319
+ */
+a {
+	text-decoration-thickness: 1px !important;
+	text-underline-offset: .1em;
+}
+
+/* Focus styles */
+:where(.wp-site-blocks *:focus) {
+	outline-width: 2px;
+	outline-style: solid;
+}
+
+/* Increase the bottom margin on submenus, so that the outline is visible. */
+.wp-block-navigation .wp-block-navigation-submenu .wp-block-navigation-item:not(:last-child) {
+	margin-bottom: 3px;
+}
+
+/* Increase the outline offset on the parent menu items, so that the outline does not touch the text. */
+.wp-block-navigation .wp-block-navigation-item .wp-block-navigation-item__content {
+	outline-offset: 4px;
+}
+
+/* Remove outline offset from the submenus, otherwise the outline is visible outside the submenu container. */
+.wp-block-navigation .wp-block-navigation-item ul.wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	outline-offset: 0;
+}
+
+/*
+ * Progressive enhancement to reduce widows and orphans
+ * https://github.com/WordPress/gutenberg/issues/55190
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+caption,
+figcaption,
+p {
+	text-wrap: pretty;
+}
+
+/*
+ * Change the position of the more block on the front, by making it a block level element.
+ * https://github.com/WordPress/gutenberg/issues/65934
+*/
+.more-link {
+	display: block;
+}
+
+/* For comic cards, use post template style "Comic" */
+.is-style-post-template-1 li {
+	position: relative;
+	/* To position post terms absolutely within the post card */
+}
+
+figure:has(a) {
+	border: 3px solid var(--wp--preset--color--contrast);
+	overflow: hidden;
+}
+
+figure:has(a) img {
+	transition:
+		transform 0.2s cubic-bezier(0.33, 1, 0.68, 1),
+		filter 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+	transform-origin: center center;
+	will-change: transform, filter;
+}
+
+figure:has(a:focus) img .is-style-post-template-1 li:has(.wp-block-post-featured-image a:focus) .wp-block-post-featured-image,
+.is-style-post-template-1 li .group-link-wrapper:focus {
+	outline: 2px solid var(--wp--preset--color--contrast);
+	outline-offset: 2px;
+}
+
+.is-style-post-template-1 li:has(.group-link-wrapper:hover) .wp-block-post-featured-image img,
+figure:has(a:hover) img,
+figure:has(a:focus) img,
+.home-hero .home-hero-article:hover .wp-block-post-featured-image img,
+.home-hero .home-hero-article:focus-within .wp-block-post-featured-image img,
+.home-sidebar-event-box:hover .everycal-next-event__image img,
+.home-sidebar-event-box:focus-within .everycal-next-event__image img,
+.home-news-card:has(a:hover):not(:has(.wp-block-post-terms a:hover)) .home-news-thumb img,
+.home-news-card:has(a:focus):not(:has(.wp-block-post-terms a:focus)) .home-news-thumb img {
+	transform: scale(1.1);
+	filter: contrast(1.25) saturate(1.5) brightness(1.05) hue-rotate(-6deg) sepia(.06);
+}
+
+.is-style-post-template-1 li:has(.group-link-wrapper:active) .wp-block-post-featured-image img,
+.is-style-post-template-1 li:has(.wp-block-post-featured-image a:active) img,
+.home-news-card:has(a:active):not(:has(.wp-block-post-terms a:active)) .home-news-thumb img {
+	transform: scale(1);
+}
+
+.is-style-post-template-1 li .group-link-wrapper {
+	border: 3px solid var(--wp--preset--color--contrast);
+	z-index: 1;
+	position: relative;
+	margin-top: -50px;
+	margin-left: 20px;
+}
+
+/* Animations also apply to all buttons, mission box, and hero article */
+.is-style-post-template-1 li .group-link-wrapper,
+.wp-block-buttons .wp-block-button__link,
+.is-style-read-more-1,
+.home-hero .home-hero-sidebox--mission,
+.home-hero .home-hero-article,
+.home-sidebar-event-box,
+.home-news-thumb {
+	will-change: transform, box-shadow, background-position, color;
+	transition:
+		transform 0.2s cubic-bezier(0.33, 1, 0.68, 1),
+		box-shadow 0.2s cubic-bezier(0.33, 1, 0.68, 1),
+		background-position 0.25s cubic-bezier(0.33, 1, 0.68, 1),
+		color 0.15s ease-out 0.05s;
+	box-shadow: var(--wp--preset--shadow--crisp);
+}
+
+.is-style-post-template-1 li:has(.wp-block-post-featured-image:hover) .group-link-wrapper,
+.is-style-post-template-1 li .group-link-wrapper:hover,
+.wp-block-buttons .wp-block-button__link:hover,
+.is-style-read-more-1:hover,
+.home-hero .home-hero-sidebox--mission:has(.home-hero-sidebox-link:hover),
+.home-hero .home-hero-article:hover,
+.home-sidebar-event-box:hover,
+.home-news-card:has(a:hover):not(:has(.wp-block-post-terms a:hover)) .home-news-thumb,
+.is-style-post-template-1 li .group-link-wrapper:focus,
+.wp-block-buttons .wp-block-button__link:focus,
+.is-style-read-more-1:focus,
+.home-hero .home-hero-sidebox--mission:has(.home-hero-sidebox-link:focus),
+.home-sidebar-event-box:focus-within,
+.home-news-card:has(a:focus):not(:has(.wp-block-post-terms a:focus)) .home-news-thumb {
+	transform: translateY(-6px);
+	box-shadow: 12px 12px 0 0 var(--wp--preset--color--contrast);
+}
+
+.is-style-post-template-1 li:has(.wp-block-post-featured-image:active) .group-link-wrapper,
+.is-style-post-template-1 li .group-link-wrapper:active,
+.wp-block-buttons .wp-block-button__link:active,
+.is-style-read-more-1:active,
+.home-hero .home-hero-sidebox--mission:has(.home-hero-sidebox-link:active),
+.home-hero .home-hero-article:active,
+.home-sidebar-event-box:active,
+.home-news-card:has(a:active):not(:has(.wp-block-post-terms a:active)) .home-news-thumb {
+	transform: translateY(6px) scale(0.98);
+	box-shadow: 0px 0px 0 0 var(--wp--preset--color--contrast);
+}
+
+/* Caption hover fill animation: slides from white to yellow */
+.home-hero .home-hero-article-caption {
+	background-color: transparent !important;
+	background-image: linear-gradient(to bottom, var(--wp--preset--color--accent-1) 50%, var(--wp--preset--color--base) 50%) !important;
+	background-size: 100% 205% !important;
+	background-position: left bottom !important;
+	transition: background-position 0.25s cubic-bezier(0.33, 1, 0.68, 1) !important;
+	box-shadow: none;
+}
+
+.home-hero .home-hero-article:hover .home-hero-article-caption,
+.home-hero .home-hero-article:focus-within .home-hero-article-caption {
+	background-position: left top !important;
+}
+
+/* To position the post terms in the top left corner, use post term style "Comic" */
+.is-style-post-template-1 .is-style-post-terms-2 {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+}
+
+/* Applies to all post terms with style "Comic" */
+.is-style-post-terms-2 {
+	transition: background-color 0.05s ease-out;
+	will-change: background-color;
+}
+
+.is-style-post-terms-2:hover {
+	background-color: var(--wp--preset--color--accent-1);
+}
+
+/* Reduce motion if user prefers */
+@media (prefers-reduced-motion: reduce) {
+
+	.is-style-post-template-1 li .wp-block-post-featured-image img,
+	.is-style-post-template-1 li .group-link-wrapper,
+	.is-style-post-terms-2,
+	.wp-block-buttons .wp-block-button__link,
+	.home-news-thumb,
+	.home-news-thumb img {
+		transition: none !important;
+		transform: none !important;
+	}
+}
+
+/* To style "Read more" like a button, select style "Button" */
+.is-style-read-more-1:focus,
+.wp-block-buttons .wp-block-button__link:focus {
+	outline-color: var(--wp--preset--color--accent-2);
+	outline-offset: 2px;
+}
+
+.wp-block-buttons .wp-block-button__link,
+.is-style-read-more-1 {
+	background-color: transparent !important;
+	background-image: linear-gradient(to bottom, var(--wp--preset--color--accent-2) 50%, var(--wp--preset--color--accent-1) 50%) !important;
+	background-size: 100% 205% !important;
+	background-position: left bottom !important;
+	overflow: hidden;
+}
+
+.wp-block-buttons .wp-block-button__link:hover,
+.wp-block-buttons .wp-block-button__link:focus,
+.is-style-read-more-1:hover,
+.is-style-read-more-1:focus {
+	background-position: left top !important;
+	color: var(--wp--preset--color--base) !important;
+}
+
+/* ==========================================================================
+   Home Page – Comic-style layout
+   ========================================================================== */
+
+/* Hero section – fit above the fold, balanced */
+.home-hero {
+	background-color: var(--wp--preset--color--accent-3) !important;
+	max-height: min(68vh, 540px);
+	overflow: hidden;
+	padding-top: var(--wp--preset--spacing--30) !important;
+	padding-bottom: var(--wp--preset--spacing--30) !important;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+}
+
+.home-hero .home-hero-inner {
+	padding: 0 !important;
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.home-hero .home-hero-columns {
+	gap: var(--wp--preset--spacing--30);
+	align-items: stretch;
+	min-height: 0;
+	flex: 1;
+}
+
+.home-hero .wp-block-post-excerpt p {
+	display: inline;
+	margin: 0;
+}
+
+.home-hero .wp-block-post-excerpt__excerpt::after {
+	content: " ";
+}
+
+.home-hero .wp-block-post-excerpt__more-link {
+	display: inline;
+}
+
+/* Main article: image fills vertical space, caption overlay */
+.home-hero .home-hero-article-column {
+	align-self: stretch;
+	min-height: 0;
+}
+
+.home-hero .home-hero-article-column .wp-block-query,
+.home-hero .home-hero-article-column .wp-block-post-template {
+	height: 100%;
+}
+
+.home-hero .home-hero-article-column .wp-block-post-template {
+	display: flex;
+}
+
+.home-hero .home-hero-article-column .wp-block-post {
+	height: 100%;
+	flex: 1;
+	min-height: 0;
+}
+
+.home-hero .home-hero-article {
+	position: relative;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.home-hero .home-hero-article .wp-block-post-featured-image {
+	overflow: hidden;
+	flex: 1;
+	min-height: 0;
+	display: block;
+}
+
+.home-hero .home-hero-article .wp-block-post-featured-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	display: block;
+}
+
+.home-hero .home-hero-article-caption,
+.home-hero .next-event-caption {
+	position: absolute;
+	bottom: var(--wp--preset--spacing--20);
+	left: var(--wp--preset--spacing--20);
+	right: auto;
+	max-width: 85%;
+	width: max-content;
+	background-color: var(--wp--preset--color--base) !important;
+	cursor: pointer;
+}
+
+/* Make the post-title link stretch over the entire caption box */
+.home-hero .home-hero-article-caption .wp-block-post-title a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.home-hero .home-hero-article-caption .wp-block-post-title a::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+}
+
+.home-hero .home-hero-article-caption .wp-block-post-title {
+	font-size: 1em !important;
+	line-height: 1.25;
+}
+
+.home-hero .home-hero-article-caption .wp-block-post-excerpt {
+	font-size: 0.8em !important;
+}
+
+@media (max-height: 800px) {
+
+	.home-hero .home-hero-article-caption,
+	.home-hero .next-event-caption {
+		bottom: var(--wp--preset--spacing--10);
+		left: var(--wp--preset--spacing--10);
+	}
+}
+
+/* Hero side boxes */
+.home-hero .home-hero-sideboxes {
+	align-self: stretch;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.home-hero .home-hero-sideboxes-inner {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	flex: 1;
+	height: 100%;
+}
+
+/* Event box – now in sidebar */
+.home-sidebar-event-box {
+	border: 3px solid var(--wp--preset--color--contrast);
+	box-shadow: var(--wp--preset--shadow--crisp);
+	overflow: visible;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	position: relative;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__inner {
+	display: flex !important;
+	flex-direction: column !important;
+	text-decoration: none;
+	color: inherit;
+	border: none;
+	background: none;
+	box-shadow: none;
+	overflow: visible;
+	gap: 0;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__image {
+	width: 100%;
+	aspect-ratio: auto;
+	min-height: 250px;
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	overflow: hidden;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__image img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	display: block;
+	transition:
+		transform 0.2s cubic-bezier(0.33, 1, 0.68, 1),
+		filter 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+	transform-origin: center center;
+	will-change: transform, filter;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__body {
+	padding: var(--wp--preset--spacing--20);
+	background-color: transparent !important;
+	background-image: linear-gradient(to bottom, var(--wp--preset--color--accent-1) 50%, var(--wp--preset--color--base) 50%) !important;
+	background-size: 100% 205% !important;
+	background-position: left bottom !important;
+	transition: background-position 0.25s cubic-bezier(0.33, 1, 0.68, 1) !important;
+	border: 3px solid var(--wp--preset--color--contrast);
+	position: absolute;
+	bottom: var(--wp--preset--spacing--20);
+	left: var(--wp--preset--spacing--20);
+	max-width: 85%;
+	max-height: 50%;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.home-sidebar-event-box:hover .everycal-next-event__body,
+.home-sidebar-event-box:focus-within .everycal-next-event__body {
+	background-position: left top !important;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__body::before {
+	content: "Nächster Termin";
+	display: block;
+	font-size: 0.7em;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	opacity: 0.85;
+	margin-bottom: 0.3em;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__date {
+	font-size: 0.8em;
+	opacity: 0.9;
+	margin-bottom: 0.2em;
+	line-height: 1.3;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__badge {
+	font-size: 0.68em;
+	padding: 0.12em 0.35em;
+	margin-right: 0.3em;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__title {
+	font-size: 1em;
+	font-weight: 600;
+	line-height: 1.3;
+	margin: 0 0 0.2em;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__description {
+	font-size: 0.85em;
+	line-height: 1.4;
+	margin-top: 0.3em;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__location {
+	font-size: 0.8em;
+	opacity: 0.85;
+	margin-top: 0.2em;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__footer {
+	padding: var(--wp--preset--spacing--20) !important;
+	padding-top: 0 !important;
+	background: none;
+	border: none;
+	text-align: right;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event .everycal-next-event__all-link {
+	display: none !important;
+}
+
+.home-sidebar-event-box .wp-block-everycal-next-event.everycal-next-event--empty,
+.home-sidebar-event-box .wp-block-everycal-next-event.everycal-next-event--error {
+	padding: var(--wp--preset--spacing--30);
+}
+
+.home-hero .home-hero-sidebox--mission {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	box-sizing: border-box;
+	background-color: transparent !important;
+	background-image: linear-gradient(to bottom, var(--wp--preset--color--accent-2) 50%, var(--wp--preset--color--accent-1) 50%) !important;
+	background-size: 100% 205% !important;
+	background-position: left bottom !important;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.home-hero .home-hero-sidebox--mission:hover,
+.home-hero .home-hero-sidebox--mission:has(.home-hero-sidebox-link:hover),
+.home-hero .home-hero-sidebox--mission:focus-within {
+	background-position: left top !important;
+}
+
+.home-hero .home-hero-sidebox--mission .wp-block-heading,
+.home-hero .home-hero-sidebox--mission p {
+	transition: color 0.15s ease-out 0.05s;
+}
+
+.home-hero .home-hero-sidebox--mission:hover .wp-block-heading,
+.home-hero .home-hero-sidebox--mission:hover p,
+.home-hero .home-hero-sidebox--mission:has(.home-hero-sidebox-link:hover) .wp-block-heading,
+.home-hero .home-hero-sidebox--mission:has(.home-hero-sidebox-link:hover) p,
+.home-hero .home-hero-sidebox--mission:focus-within .wp-block-heading,
+.home-hero .home-hero-sidebox--mission:focus-within p {
+	color: var(--wp--preset--color--base) !important;
+}
+
+.home-hero .home-hero-sidebox--mission .wp-block-heading {
+	font-size: 1.5em;
+	font-weight: 800;
+	line-height: 1.2;
+}
+
+.home-hero .home-hero-sidebox--mission p {
+	font-size: 1em;
+	line-height: 1.4;
+	font-weight: 500;
+}
+
+.home-hero .home-hero-sidebox {
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: var(--wp--preset--color--base) !important;
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.home-hero .home-hero-sidebox-link {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+}
+
+.home-hero .home-hero-sidebox--mission:has(.home-hero-sidebox-link:hover) a,
+.home-hero .home-hero-sidebox--mission:has(.home-hero-sidebox-link:focus) a {
+	text-decoration: underline;
+}
+
+.home-hero .home-hero-article-column .wp-block-post-featured-image {
+	aspect-ratio: 2 / 1 !important;
+}
+
+
+.home-hero .home-hero-sidebox .wp-block-post-featured-image {
+	overflow: hidden;
+	flex: 1;
+	min-height: 0;
+}
+
+.home-hero .home-hero-sidebox .wp-block-post-featured-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+/* Hero responsive: stack on tablet/mobile */
+@media (max-width: 900px) {
+	.home-hero .home-hero-columns {
+		flex-direction: column;
+	}
+
+	.home-hero .home-hero-article-column {
+		min-height: 50vh;
+	}
+
+	.home-hero .home-hero-sidebox--mission {
+		aspect-ratio: auto;
+	}
+}
+
+@media (max-width: 600px) {
+	.home-hero {
+		padding-top: var(--wp--preset--spacing--30) !important;
+		padding-bottom: var(--wp--preset--spacing--30) !important;
+		padding-left: var(--wp--preset--spacing--30) !important;
+		padding-right: var(--wp--preset--spacing--30) !important;
+	}
+}
+
+/* Content section: news list */
+.home-content .home-news-section h2 {
+	margin-bottom: var(--wp--preset--spacing--30);
+}
+
+.home-news-list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--40);
+}
+
+.home-news-card {
+	align-items: flex-start;
+	gap: var(--wp--preset--spacing--30);
+}
+
+.home-news-card .wp-block-post-featured-image,
+.home-news-thumb {
+	flex-shrink: 0;
+	overflow: hidden;
+	border: 3px solid var(--wp--preset--color--contrast);
+}
+
+.home-news-card .wp-block-post-featured-image img,
+.home-news-thumb img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+@media (max-width: 600px) {
+	.home-news-card {
+		flex-direction: column;
+	}
+
+	.home-news-thumb {
+		width: 100% !important;
+		height: auto !important;
+		aspect-ratio: 16 / 9;
+	}
+}
+
+/* Sidebar cards – comic panel style */
+.home-sidebar-card {
+	box-shadow: var(--wp--preset--shadow--crisp);
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* Map section */
+.home-map-section {
+	border-top-style: solid;
+}
+
+/* Donation CTA */
+.home-donation-cta {
+	border-top-style: solid;
+}
+
+/* Newsletter CTA */
+.home-newsletter-cta {
+	background-color: var(--wp--preset--color--accent-5) !important;
+}
+
+/* Content area responsive */
+@media (max-width: 781px) {
+	.home-content .wp-block-columns {
+		flex-direction: column;
+	}
+
+	.home-content .wp-block-column {
+		flex-basis: 100% !important;
+	}
+}
+/* ==========================================================================
+   Member Initiatives Scroll Section
+   ========================================================================== */
+.home-initiatives-section {
+	overflow: hidden;
+	width: 100vw;
+	max-width: 100%;
+}
+
+.home-initiatives-scroll {
+	width: 100%;
+}
+
+.home-initiatives-scroll .home-initiatives-scroll-list {
+	overflow-x: auto;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE 10+ */
+	scroll-snap-type: x mandatory;
+	padding-right: var(--wp--preset--spacing--40); /* Spacing at end of scroll */
+	padding-bottom: var(--wp--preset--spacing--20);
+}
+
+.home-initiatives-scroll .home-initiatives-scroll-list::-webkit-scrollbar {
+	display: none; /* Chrome/Safari */
+}
+
+/* Initiative cards behave similarly to hero side cards */
+.home-initiative-card {
+	flex: 0 0 calc(90vw - var(--wp--preset--spacing--60));
+	max-width: 320px;
+	scroll-snap-align: start;
+	transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+	box-shadow: var(--wp--preset--shadow--crisp);
+	will-change: transform, box-shadow;
+}
+
+.home-initiative-card:hover,
+.home-initiative-card:focus-within {
+	transform: translateY(-6px);
+	box-shadow: 12px 12px 0 0 var(--wp--preset--color--contrast);
+}
+
+.home-initiative-card:active {
+	transform: translateY(6px) scale(0.98);
+	box-shadow: 0px 0px 0 0 var(--wp--preset--color--contrast);
+}
+
+.home-initiative-card .wp-block-post-featured-image {
+	overflow: hidden;
+	border: 3px solid var(--wp--preset--color--contrast);
+}
+
+.home-initiative-card .wp-block-post-featured-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), filter 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.home-initiative-card:hover .wp-block-post-featured-image img,
+.home-initiative-card:focus-within .wp-block-post-featured-image img,
+.home-initiative-card:has(a:hover) .wp-block-post-featured-image img,
+.home-initiative-card:has(a:focus) .wp-block-post-featured-image img {
+	transform: scale(1.1);
+	filter: contrast(1.25) saturate(1.5) brightness(1.05) hue-rotate(-6deg) sepia(.06);
+}
+
+.home-initiative-card:active .wp-block-post-featured-image img,
+.home-initiative-card:has(a:active) .wp-block-post-featured-image img {
+	transform: scale(1);
+}

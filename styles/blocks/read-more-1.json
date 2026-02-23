@@ -1,0 +1,36 @@
+{
+	"version": 3,
+	"$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+	"title": "Button",
+	"slug": "read-more-1",
+	"blockTypes": [
+		"core/read-more"
+	],
+	"styles": {
+		"color": {
+			"background": "var:preset|color|accent-1",
+			"text": "var:preset|color|contrast"
+		},
+		"border": {
+			"radius": "0px",
+			"style": "solid",
+			"width": "3px",
+			"color": "var:preset|color|contrast"
+		},
+		"shadow": "var:preset|shadow|crisp",
+		"spacing": {
+			"padding": {
+				"bottom": "1rem",
+				"left": "1rem",
+				"right": "1rem",
+				"top": "1rem"
+			}
+		},
+		"typography": {
+			"fontFamily": "var:preset|font-family|bangers",
+			"fontWeight": "400",
+			"lineHeight": "1.125",
+			"letterSpacing": "8%"
+		}
+	}
+}

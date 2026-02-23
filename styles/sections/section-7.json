@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+	"version": 3,
+	"slug": "section-7",
+	"title": "Weit",
+	"blockTypes": [
+		"core/group",
+		"core/columns",
+		"core/column"
+	],
+	"styles": {
+		"css": "max-width: var(--wp--style--global--wide-size);margin-left: auto;margin-right: auto;"
+	}
+}
